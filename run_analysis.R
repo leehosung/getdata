@@ -23,7 +23,7 @@ set = set[grep("*-mean\\(\\)|*-std\\(\\)", names(set))]
 # bind activity
 label = rbind(trainLabel, testLabel)
 label = merge(label, activity_label, by.x="V1", by.y="V1", all=TRUE)
-colnames(label) <- c("activity", "activity name")
+colnames(label) <- c("activity", "activity_name")
 set = cbind(set, label)
 
 # bind subject
@@ -32,7 +32,7 @@ colnames(subject) <- c("subject")
 set = cbind(set, subject)
 
 # create tidy_set
-tidy_set = ddply(set, c("subject", "activity"), function (x) colMeans(x[1:(length(set)-3)]))
+tidy_set = ddply(set, c("subject", "activity_name"), function (x) colMeans(x[1:(length(set)-3)]))
 
 # Write tidy_dataset.csv, with header
-write.table(tidy_set, "tidy_set.csv")
+write.table(tidy_set, "tidy_set.csv", row.names=FALSE)
