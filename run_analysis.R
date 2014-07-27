@@ -1,4 +1,3 @@
-setwd("/Users/leclipse/git/cleaning_data/getdata/")
 library('plyr')
 
 # load datafile
@@ -23,16 +22,16 @@ set = set[grep("*-mean\\(\\)|*-std\\(\\)", names(set))]
 # bind activity
 label = rbind(trainLabel, testLabel)
 label = merge(label, activity_label, by.x="V1", by.y="V1", all=TRUE)
-colnames(label) <- c("activity", "activity_name")
+colnames(label) <- c("Activity", "ActivityName")
 set = cbind(set, label)
 
 # bind subject
 subject = rbind(trainSubject, testSubject)
-colnames(subject) <- c("subject")
+colnames(subject) <- c("SubjectID")
 set = cbind(set, subject)
 
 # create tidy_set
-tidy_set = ddply(set, c("subject", "activity_name"), function (x) colMeans(x[1:(length(set)-3)]))
+tidy_set = ddply(set, c("SubjectID", "ActivityName"), function (x) colMeans(x[1:(length(set)-3)]))
 
 # Write tidy_dataset.csv, with header
-write.table(tidy_set, "tidy_set.txt", row.names=FALSE)
+write.table(tidy_set, "data/tidy_set.txt", row.names=FALSE)
