@@ -35,4 +35,4 @@ set = cbind(set, subject)
 tidy_set = ddply(set, c("subject", "activity_name"), function (x) colMeans(x[1:(length(set)-3)]))
 
 # Write tidy_dataset.csv, with header
-write.table(tidy_set, "tidy_set.csv", row.names=FALSE)
+write.table(tidy_set, "tidy_set.txt", row.names=FALSE)
